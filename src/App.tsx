@@ -210,7 +210,10 @@ function App() {
           <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-8">
             <Sparkles className="h-4 w-4 text-purple-600" />
             <span className="text-xs sm:text-sm font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Trusted by 1,000+ teams worldwide
+              Powered by{" "}
+              <a href="https://uxbert.com" target="_blank" rel="noopener noreferrer">
+                Uxbert Labs
+              </a>
             </span>
           </div>
 
@@ -386,7 +389,9 @@ function App() {
       {/* How It Works */}
       <section ref={flowRef} className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 px-4">From bug to fix in minutes</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 px-4">
+            From bug to fix in minutes
+          </h2>
           <div className="space-y-6 sm:space-y-8 px-4">
             <div className="flow-step flex gap-4 sm:gap-6 items-start">
               <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base">
@@ -503,14 +508,23 @@ function App() {
             Join 1,000+ teams who've revolutionized their bug reporting process
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <Button size="lg" className="text-sm sm:text-base bg-white text-purple-600 hover:bg-gray-100 w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="text-sm sm:text-base bg-white text-purple-600 hover:bg-gray-100 w-full sm:w-auto"
+            >
               Start 14-Day Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="text-sm sm:text-base border-white text-white hover:bg-white/10 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-sm sm:text-base border-white text-white hover:bg-white/10 w-full sm:w-auto"
+            >
               <Code2 className="mr-2 h-4 w-4" /> View on GitHub
             </Button>
           </div>
-          <p className="mt-6 text-xs sm:text-sm text-white/70 px-4">No credit card required • Setup in 2 minutes • Cancel anytime</p>
+          <p className="mt-6 text-xs sm:text-sm text-white/70 px-4">
+            No credit card required • Setup in 2 minutes • Cancel anytime
+          </p>
         </div>
       </section>
 
