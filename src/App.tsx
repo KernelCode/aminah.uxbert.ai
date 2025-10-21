@@ -15,6 +15,8 @@ import {
   Sparkles,
   FileText,
   Clock,
+  Menu,
+  X,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +27,7 @@ function App() {
   const flowRef = useRef<HTMLDivElement>(null);
   const slidingTextRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const userTypes = [
     { text: "QA Teams", color: "from-blue-600 to-cyan-600" },
@@ -153,25 +156,49 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50/50 to-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
                 <Bug className="h-4 w-4 text-white" />
               </div>
-              <div className="text-2xl font-bold">Aminah</div>
+              <div className="text-xl sm:text-2xl font-bold">Aminah</div>
             </div>
-            <div className="flex gap-4">
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex gap-4">
               <Button variant="ghost">Documentation</Button>
               <Button variant="ghost">Pricing</Button>
               <Button>Start Free Trial</Button>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-gray-200 pt-4">
+              <Button variant="ghost" className="w-full justify-start">
+                Documentation
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                Pricing
+              </Button>
+              <Button className="w-full">Start Free Trial</Button>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="pt-32 pb-20 px-6 relative overflow-hidden">
+      <section ref={heroRef} className="pt-32 pb-20 px-4 sm:px-6 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
@@ -182,12 +209,12 @@ function App() {
           {/* New Badge */}
           <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-8">
             <Sparkles className="h-4 w-4 text-purple-600" />
-            <span className="text-sm font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-xs sm:text-sm font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Trusted by 1,000+ teams worldwide
             </span>
           </div>
 
-          <h1 className="hero-title text-5xl md:text-7xl font-bold tracking-tight mb-8">
+          <h1 className="hero-title text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-8 px-4">
             Bug reporting that
             <br />
             <span className="inline-block">works for </span>
@@ -201,33 +228,33 @@ function App() {
             </div>
           </h1>
 
-          <p className="hero-subtitle text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+          <p className="hero-subtitle text-lg sm:text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto px-4">
             Transform how your team handles bug reports.{" "}
             <span className="font-semibold text-gray-900">Just one line of code.</span> Let users capture, annotate, and
             submit issues in seconds while you focus on fixing them.
           </p>
 
-          <div className="hero-cta flex gap-4 justify-center mb-12">
-            <Button size="lg" className="text-base bg-black hover:bg-gray-800">
+          <div className="hero-cta flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 px-4">
+            <Button size="lg" className="text-sm sm:text-base bg-black hover:bg-gray-800 w-full sm:w-auto">
               Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="text-base">
+            <Button variant="outline" size="lg" className="text-sm sm:text-base w-full sm:w-auto">
               Watch 2-min Demo
             </Button>
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-500 px-4">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4" />
+              <Shield className="h-4 w-4 flex-shrink-0" />
               <span>SOC 2 Compliant</span>
             </div>
             <div className="flex items-center gap-2">
-              <Globe className="h-4 w-4" />
+              <Globe className="h-4 w-4 flex-shrink-0" />
               <span>99.9% Uptime</span>
             </div>
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
+              <Users className="h-4 w-4 flex-shrink-0" />
               <span>24/7 Support</span>
             </div>
           </div>
@@ -235,58 +262,58 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <section className="stats-section py-16 px-6 bg-gradient-to-r from-gray-900 to-black text-white">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-center">
+      <section className="stats-section py-16 px-4 sm:px-6 bg-gradient-to-r from-gray-900 to-black text-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
           <div>
-            <div className="stat-number text-4xl font-bold mb-2" data-value="50000">
+            <div className="stat-number text-2xl sm:text-4xl font-bold mb-2" data-value="50000">
               0
             </div>
-            <div className="text-gray-400">Bugs Reported</div>
+            <div className="text-xs sm:text-sm text-gray-400">Bugs Reported</div>
           </div>
           <div>
-            <div className="text-4xl font-bold mb-2">
+            <div className="text-2xl sm:text-4xl font-bold mb-2">
               <span className="stat-number" data-value="85">
                 0
               </span>
               %
             </div>
-            <div className="text-gray-400">Faster Resolution</div>
+            <div className="text-xs sm:text-sm text-gray-400">Faster Resolution</div>
           </div>
           <div>
-            <div className="stat-number text-4xl font-bold mb-2" data-value="1200">
+            <div className="stat-number text-2xl sm:text-4xl font-bold mb-2" data-value="1200">
               0
             </div>
-            <div className="text-gray-400">Active Teams</div>
+            <div className="text-xs sm:text-sm text-gray-400">Active Teams</div>
           </div>
           <div>
-            <div className="text-4xl font-bold mb-2">
+            <div className="text-2xl sm:text-4xl font-bold mb-2">
               <span className="stat-number" data-value="4">
                 0
               </span>
               .9/5
             </div>
-            <div className="text-gray-400">User Rating</div>
+            <div className="text-xs sm:text-sm text-gray-400">User Rating</div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 px-6">
+      <section ref={featuresRef} className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-16 px-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               Everything you need,
               <br />
               <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 nothing you don't
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Built for modern teams who value efficiency and clarity in their bug tracking workflow
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="feature-card group bg-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Zap className="h-6 w-6 text-white" />
@@ -357,72 +384,72 @@ function App() {
       </section>
 
       {/* How It Works */}
-      <section ref={flowRef} className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <section ref={flowRef} className="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">From bug to fix in minutes</h2>
-          <div className="space-y-8">
-            <div className="flow-step flex gap-6 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 px-4">From bug to fix in minutes</h2>
+          <div className="space-y-6 sm:space-y-8 px-4">
+            <div className="flow-step flex gap-4 sm:gap-6 items-start">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base">
                 1
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Add the Magic Script</h3>
-                <p className="text-gray-600">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Add the Magic Script</h3>
+                <p className="text-sm sm:text-base text-gray-600">
                   Copy our lightweight JavaScript snippet and paste it into your website. Works with any framework or
                   vanilla HTML.
                 </p>
-                <div className="mt-3 inline-flex items-center text-sm text-purple-600 font-medium">
+                <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Code2 className="h-4 w-4 mr-1" />
                   ~3KB gzipped
                 </div>
               </div>
             </div>
 
-            <div className="flow-step flex gap-6 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+            <div className="flow-step flex gap-4 sm:gap-6 items-start">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base">
                 2
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Users Report with Context</h3>
-                <p className="text-gray-600">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Users Report with Context</h3>
+                <p className="text-sm sm:text-base text-gray-600">
                   A subtle floating widget appears. Users capture their screen, draw annotations, and describe the
                   issue—all without leaving your site.
                 </p>
-                <div className="mt-3 inline-flex items-center text-sm text-purple-600 font-medium">
+                <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Clock className="h-4 w-4 mr-1" />
                   Average report time: 30 seconds
                 </div>
               </div>
             </div>
 
-            <div className="flow-step flex gap-6 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+            <div className="flow-step flex gap-4 sm:gap-6 items-start">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base">
                 3
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Smart Processing & Routing</h3>
-                <p className="text-gray-600">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Smart Processing & Routing</h3>
+                <p className="text-sm sm:text-base text-gray-600">
                   Reports flow through your configured webhook (n8n, Zapier, or custom) and create detailed tickets in
                   your project management tool.
                 </p>
-                <div className="mt-3 inline-flex items-center text-sm text-purple-600 font-medium">
+                <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Zap className="h-4 w-4 mr-1" />
                   Instant delivery
                 </div>
               </div>
             </div>
 
-            <div className="flow-step flex gap-6 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-600 to-teal-600 text-white rounded-full flex items-center justify-center shadow-lg">
-                <CheckCircle2 className="h-6 w-6" />
+            <div className="flow-step flex gap-4 sm:gap-6 items-start">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-600 to-teal-600 text-white rounded-full flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Fix with Full Context</h3>
-                <p className="text-gray-600">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Fix with Full Context</h3>
+                <p className="text-sm sm:text-base text-gray-600">
                   Your team gets everything: annotated screenshots, browser details, console logs, and user steps. No
                   more back-and-forth for clarification.
                 </p>
-                <div className="mt-3 inline-flex items-center text-sm text-green-600 font-medium">
+                <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-green-600 font-medium">
                   <CheckCircle2 className="h-4 w-4 mr-1" />
                   85% faster bug resolution
                 </div>
@@ -433,18 +460,18 @@ function App() {
       </section>
 
       {/* Code Example */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-8">Seriously, it's this simple</h2>
-          <p className="text-center text-gray-600 mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 px-4">Seriously, it's this simple</h2>
+          <p className="text-center text-sm sm:text-base text-gray-600 mb-8 px-4">
             Add this before your closing &lt;/body&gt; tag and you're done
           </p>
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-            <div className="relative bg-gray-900 text-gray-100 p-8 rounded-lg font-mono text-sm overflow-x-auto">
-              <div className="absolute top-4 right-4">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                  <Code2 className="h-4 w-4 mr-2" />
+            <div className="relative bg-gray-900 text-gray-100 p-4 sm:p-8 rounded-lg font-mono text-xs sm:text-sm overflow-x-auto">
+              <div className="absolute top-2 right-2 sm:top-4 sm:right-4">
+                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white text-xs sm:text-sm">
+                  <Code2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Copy
                 </Button>
               </div>
@@ -469,40 +496,40 @@ function App() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-purple-600 to-blue-600 text-white">
+      <section className="py-20 px-4 sm:px-6 bg-gradient-to-br from-purple-600 to-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Stop losing bugs in emails and chat</h2>
-          <p className="text-xl text-white/90 mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 px-4">Stop losing bugs in emails and chat</h2>
+          <p className="text-lg sm:text-xl text-white/90 mb-10 px-4">
             Join 1,000+ teams who've revolutionized their bug reporting process
           </p>
-          <div className="flex gap-4 justify-center">
-            <Button size="lg" className="text-base bg-white text-purple-600 hover:bg-gray-100">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            <Button size="lg" className="text-sm sm:text-base bg-white text-purple-600 hover:bg-gray-100 w-full sm:w-auto">
               Start 14-Day Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="text-base border-white text-white hover:bg-white/10">
+            <Button variant="outline" size="lg" className="text-sm sm:text-base border-white text-white hover:bg-white/10 w-full sm:w-auto">
               <Code2 className="mr-2 h-4 w-4" /> View on GitHub
             </Button>
           </div>
-          <p className="mt-6 text-sm text-white/70">No credit card required • Setup in 2 minutes • Cancel anytime</p>
+          <p className="mt-6 text-xs sm:text-sm text-white/70 px-4">No credit card required • Setup in 2 minutes • Cancel anytime</p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-12 px-6">
+      <footer className="border-t border-gray-200 py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
+            <div className="col-span-2 sm:col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
                   <Bug className="h-4 w-4 text-white" />
                 </div>
-                <div className="text-xl font-bold">Aminah</div>
+                <div className="text-lg sm:text-xl font-bold">Aminah</div>
               </div>
-              <p className="text-sm text-gray-600">Making bug reporting a breeze for teams worldwide.</p>
+              <p className="text-xs sm:text-sm text-gray-600">Making bug reporting a breeze for teams worldwide.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Product</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <h4 className="font-semibold mb-3 text-sm sm:text-base">Product</h4>
+              <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
                 <li>
                   <a href="#" className="hover:text-gray-900">
                     Features
@@ -526,8 +553,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Resources</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <h4 className="font-semibold mb-3 text-sm sm:text-base">Resources</h4>
+              <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
                 <li>
                   <a href="#" className="hover:text-gray-900">
                     Documentation
@@ -551,8 +578,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Company</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <h4 className="font-semibold mb-3 text-sm sm:text-base">Company</h4>
+              <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
                 <li>
                   <a href="#" className="hover:text-gray-900">
                     About
@@ -576,9 +603,9 @@ function App() {
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
+          <div className="pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-gray-600">
             <div>© 2025 Aminah. All rights reserved.</div>
-            <div className="flex gap-6">
+            <div className="flex gap-4 sm:gap-6">
               <a href="#" className="hover:text-gray-900">
                 Twitter
               </a>
