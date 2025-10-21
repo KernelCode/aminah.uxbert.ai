@@ -50,7 +50,7 @@ function App() {
       gsap.fromTo(
         slidingTextRef.current,
         {
-          y: 20,
+          y: 60,
           opacity: 0,
           rotateX: -90,
         },
@@ -58,7 +58,7 @@ function App() {
           y: 0,
           opacity: 1,
           rotateX: 0,
-          duration: 0.6,
+          duration: 0.8,
           ease: "back.out(1.7)",
         }
       );
@@ -191,11 +191,10 @@ function App() {
             Bug reporting that
             <br />
             <span className="inline-block">works for </span>
-            <div className="inline-block relative h-[1.2em] w-[280px] md:w-[380px] overflow-hidden align-bottom">
+            <div className="inline-block relative h-[1em] w-fit overflow-hidden align-bottom">
               <div
                 ref={slidingTextRef}
-                className={`absolute inset-0 bg-gradient-to-r ${userTypes[currentIndex].color} bg-clip-text text-transparent font-bold`}
-                style={{ perspective: "1000px" }}
+                className={`mx-2 bg-gradient-to-r ${userTypes[currentIndex].color} bg-clip-text text-transparent font-bold`}
               >
                 {userTypes[currentIndex].text}
               </div>
@@ -203,8 +202,9 @@ function App() {
           </h1>
 
           <p className="hero-subtitle text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
-            Transform how your team handles bug reports. One script, endless possibilities. Let users capture, annotate,
-            and submit issues in seconds while you focus on fixing them.
+            Transform how your team handles bug reports.{" "}
+            <span className="font-semibold text-gray-900">Just one line of code.</span> Let users capture, annotate, and
+            submit issues in seconds while you focus on fixing them.
           </p>
 
           <div className="hero-cta flex gap-4 justify-center mb-12">
