@@ -1,4 +1,4 @@
-# robots.txt for https://aminah.io
+# robots.txt for https://aminah.ai
 
 User-agent: *
 Allow: /
@@ -8,7 +8,7 @@ Allow: /
 # Disallow: /private/
 
 # Sitemap location
-Sitemap: https://aminah.io/sitemap.xml
+Sitemap: https://aminah.ai/sitemap.xml
 
 # Crawl-delay (optional, adjust as needed)
 Crawl-delay: 10

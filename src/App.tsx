@@ -55,10 +55,10 @@ function App() {
   ];
 
   const generateConfigCode = () => {
-    return `<!-- UxReporter Integration -->
-<script src="https://cdn.uxreporter.io/v2/uxreporter.min.js"></script>
+    return `<!-- Aminah Bug Reporter -->
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah/dist/aminah.standalone.min.js"></script>
 <script>
-  UxReporter.init({
+  Aminah.init({
     ui: {
       position: "${config.position}",
       theme: "${config.theme}",
@@ -112,7 +112,7 @@ function App() {
   const downloadN8nWorkflow = () => {
     const link = document.createElement("a");
     link.href = "/n8n.workflow.json";
-    link.download = "uxreporter-n8n-workflow.json";
+    link.download = "n8n.workflow.json";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -536,7 +536,7 @@ function App() {
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Customize Your Integration</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Configure UxReporter to match your needs. Adjust settings below and generate your custom integration code.
+              Configure Aminah to match your needs. Adjust settings below and generate your custom integration code.
             </p>
           </div>
 
@@ -775,7 +775,7 @@ function App() {
                 </Button>
               </div>
               <pre>{`<!-- Aminah Bug Reporter -->
-<script src="https://cdn.aminah.io/v2/aminah.min.js"></script>
+<script src="https://cdn.aminah.ai/v2/aminah.min.js"></script>
 <script>
   Aminah.init({
  

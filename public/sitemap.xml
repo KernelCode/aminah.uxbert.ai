@@ -6,7 +6,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://aminah.io/</loc>
+    <loc>https://aminah.ai/</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- Documentation Section -->
   <url>
-    <loc>https://aminah.io/#documentation</loc>
+    <loc>https://aminah.ai/#documentation</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -23,7 +23,7 @@
   <!-- Add more URLs as your site grows -->
   <!-- Example:
   <url>
-    <loc>https://aminah.io/pricing</loc>
+    <loc>https://aminah.ai/pricing</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
