@@ -68,6 +68,9 @@ function App() {
       deviceInfo: ${config.deviceInfo},
     },
     integrations: {
+      // Aminah sends POST requests to your webhook URL
+      // Route reports to any tool: Jira, Linear, GitHub, Slack, email, databases, etc.
+      // Works with n8n, Make, Zapier, or custom endpoints
       n8n: {
         webhookUrl: "${config.webhookUrl}",
         enabled: true,
@@ -429,9 +432,9 @@ function App() {
               <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Drone className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Smart Integration</h3>
+              <h3 className="text-xl font-semibold mb-3">Universal Webhook Integration</h3>
               <p className="text-gray-600 mb-4">
-                Automatically creates tickets in Jira, Linear, GitHub, or your favorite tool via webhooks.
+                Sends POST requests to any webhook (n8n, Make, Zapier, or custom). Route bug reports to Jira, Linear, GitHub, Slack, email—anywhere you need them.
               </p>
               <div className="text-sm text-purple-600 font-medium">View integrations →</div>
             </div>
@@ -520,12 +523,11 @@ function App() {
               <div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Smart Processing & Routing</h3>
                 <p className="text-sm sm:text-base text-gray-600">
-                  Reports flow through your configured webhook (n8n, Zapier, or custom) and create detailed tickets in
-                  your project management tool.
+                  Aminah sends a POST request to your webhook (n8n, Make, Zapier, or custom endpoint). From there, you control where the data goes—Jira, Linear, GitHub, Slack, email, databases, or any tool you use.
                 </p>
                 <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Zap className="h-4 w-4 mr-1" />
-                  Instant delivery
+                  Instant delivery via POST request
                 </div>
               </div>
             </div>
@@ -566,7 +568,7 @@ function App() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Configuration Options */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-6">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl border border-gray-200 space-y-6">
               <div>
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-purple-600" />
@@ -576,12 +578,12 @@ function App() {
                 {/* Position */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Widget Position</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {(["bottom-right", "bottom-left", "top-right", "top-left"] as const).map((pos) => (
                       <button
                         key={pos}
                         onClick={() => setConfig({ ...config, position: pos })}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                        className={`px-2 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                           config.position === pos
                             ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -599,12 +601,12 @@ function App() {
                 {/* Theme */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Theme</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {(["light", "dark"] as const).map((theme) => (
                       <button
                         key={theme}
                         onClick={() => setConfig({ ...config, theme })}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                           config.theme === theme
                             ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -655,12 +657,12 @@ function App() {
                 {/* Screenshot Format */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Format</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {(["png", "jpeg"] as const).map((format) => (
                       <button
                         key={format}
                         onClick={() => setConfig({ ...config, format })}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                           config.format === format
                             ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -713,22 +715,25 @@ function App() {
 
                 {/* Webhook URL */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">n8n Webhook URL</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Webhook URL</label>
                   <input
                     type="text"
                     value={config.webhookUrl}
                     onChange={(e) => setConfig({ ...config, webhookUrl: e.target.value })}
-                    placeholder="https://your-n8n-instance.com/webhook/..."
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                    placeholder="https://your-webhook-url.com/..."
+                    className="w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-xs sm:text-sm"
                   />
-                  <p className="mt-2 text-xs text-gray-500">
+                  <p className="mt-2 text-[11px] sm:text-xs text-gray-500 leading-relaxed">
+                    Aminah sends POST requests to any webhook URL (n8n, Make, Zapier, or custom). From there, you can route bug reports to Jira, Linear, GitHub, Slack, email, or any other tool.
+                  </p>
+                  <p className="mt-2 text-[11px] sm:text-xs text-gray-500">
                     Don't have a workflow yet?{" "}
                     <button
                       onClick={downloadN8nWorkflow}
-                      className="text-purple-600 hover:text-purple-700 font-medium inline-flex items-center gap-1"
+                      className="text-purple-600 hover:text-purple-700 font-medium inline-flex items-center gap-1 break-words"
                     >
-                      <Download className="h-3 w-3" />
-                      Download n8n workflow template
+                      <Download className="h-3 w-3 flex-shrink-0" />
+                      <span>Download n8n workflow template</span>
                     </button>
                   </p>
                 </div>
@@ -736,7 +741,7 @@ function App() {
             </div>
 
             {/* Generated Code */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-200">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <Code2 className="h-5 w-5 text-purple-600" />
@@ -744,18 +749,20 @@ function App() {
                 </h3>
                 <Button
                   onClick={copyToClipboard}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-xs sm:text-sm px-3 sm:px-4"
                   size="sm"
                 >
                   {copied ? (
                     <>
-                      <Check className="h-4 w-4 mr-2" />
-                      Copied!
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                      <span className="hidden xs:inline">Copied!</span>
+                      <span className="xs:hidden">✓</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy Code
+                      <Copy className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                      <span className="hidden xs:inline">Copy Code</span>
+                      <span className="xs:hidden">Copy</span>
                     </>
                   )}
                 </Button>
@@ -763,17 +770,18 @@ function App() {
 
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-                <div className="relative bg-gray-900 text-gray-100 p-3 sm:p-4 md:p-6 rounded-lg font-mono text-[10px] xs:text-xs sm:text-sm overflow-x-auto max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
-                  <pre className="whitespace-pre-wrap break-words min-w-0">{generateConfigCode()}</pre>
+                <div className="relative bg-gray-900 text-gray-100 p-3 sm:p-4 md:p-6 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-y-auto">
+                  <pre className="whitespace-pre-wrap break-all sm:break-words min-w-0">{generateConfigCode()}</pre>
                 </div>
               </div>
 
-              <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800 font-medium mb-1">Installation Instructions</p>
-                <ol className="text-xs text-blue-700 space-y-1 list-decimal list-inside">
+              <div className="mt-4 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-xs sm:text-sm text-blue-800 font-medium mb-2">Installation Instructions</p>
+                <ol className="text-[11px] sm:text-xs text-blue-700 space-y-1.5 list-decimal list-inside leading-relaxed">
                   <li>Copy the code above</li>
                   <li>Paste it before your closing &lt;/body&gt; tag</li>
-                  <li>Replace the webhook URL with your own n8n endpoint</li>
+                  <li>Replace the webhook URL with your own endpoint (n8n, Make, Zapier, or custom)</li>
+                  <li>Configure your webhook to route reports to your preferred tools (Jira, Slack, email, etc.)</li>
                   <li>Save and deploy your changes</li>
                 </ol>
               </div>
