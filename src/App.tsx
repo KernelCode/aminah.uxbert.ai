@@ -57,7 +57,7 @@ function App() {
 
   const generateConfigCode = () => {
     return `<!-- Aminah Bug Reporter -->
-<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah/dist/aminah.standalone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.4/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
     ui: {
