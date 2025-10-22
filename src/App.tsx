@@ -357,7 +357,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 flex-shrink-0" />
-              <span>24/7 Support</span>
+              <span>Trusted by 1,200+ Teams</span>
             </div>
           </div>
         </div>
@@ -588,10 +588,10 @@ function App() {
                       <button
                         key={pos}
                         onClick={() => setConfig({ ...config, position: pos })}
-                        className={`px-2 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                        className={`px-2 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border ${
                           config.position === pos
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg border-transparent"
+                            : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
                         }`}
                       >
                         {pos
@@ -611,10 +611,10 @@ function App() {
                       <button
                         key={theme}
                         onClick={() => setConfig({ ...config, theme })}
-                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border ${
                           config.theme === theme
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg border-transparent"
+                            : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
                         }`}
                       >
                         {theme.charAt(0).toUpperCase() + theme.slice(1)}
@@ -667,10 +667,10 @@ function App() {
                       <button
                         key={format}
                         onClick={() => setConfig({ ...config, format })}
-                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                        className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border ${
                           config.format === format
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg border-transparent"
+                            : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
                         }`}
                       >
                         {format.toUpperCase()}
