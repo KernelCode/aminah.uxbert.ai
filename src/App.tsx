@@ -934,10 +934,9 @@ function App() {
                 <code>
                   <CodeHighlighter
                     code={`<!-- Aminah Bug Reporter -->
-<script src="https://cdn.aminah.ai/v2/aminah.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.4/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
-
     webhook: 'https://your-webhook-url.com', // n8n, Zapier, or custom endpoint
     position: 'bottom-right',
     features: {
