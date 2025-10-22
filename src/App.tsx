@@ -35,7 +35,7 @@ function App() {
 
   // Configuration options
   const [config, setConfig] = useState({
-    webhookUrl: "https://uxbertlabs.app.n8n.cloud/webhook-test/create-ticket",
+    webhookUrl: "https://uxbertlabs.app.n8n.cloud/webhook/create-ticket",
     position: "bottom-right" as "bottom-right" | "bottom-left" | "top-right" | "top-left",
     theme: "light" as "light" | "dark",
     annotation: true,
@@ -329,7 +329,10 @@ function App() {
           {/* CTA Buttons */}
           <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center mb-10 px-4">
             <a href="/demo.html">
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg"
+              >
                 Try Live Demo
                 <Sparkles className="ml-2 h-5 w-5" />
               </Button>
@@ -434,7 +437,8 @@ function App() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Universal Webhook Integration</h3>
               <p className="text-gray-600 mb-4">
-                Sends POST requests to any webhook (n8n, Make, Zapier, or custom). Route bug reports to Jira, Linear, GitHub, Slack, email—anywhere you need them.
+                Sends POST requests to any webhook (n8n, Make, Zapier, or custom). Route bug reports to Jira, Linear,
+                GitHub, Slack, email—anywhere you need them.
               </p>
               <div className="text-sm text-purple-600 font-medium">View integrations →</div>
             </div>
@@ -523,7 +527,8 @@ function App() {
               <div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Smart Processing & Routing</h3>
                 <p className="text-sm sm:text-base text-gray-600">
-                  Aminah sends a POST request to your webhook (n8n, Make, Zapier, or custom endpoint). From there, you control where the data goes—Jira, Linear, GitHub, Slack, email, databases, or any tool you use.
+                  Aminah sends a POST request to your webhook (n8n, Make, Zapier, or custom endpoint). From there, you
+                  control where the data goes—Jira, Linear, GitHub, Slack, email, databases, or any tool you use.
                 </p>
                 <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Zap className="h-4 w-4 mr-1" />
@@ -724,7 +729,8 @@ function App() {
                     className="w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-xs sm:text-sm"
                   />
                   <p className="mt-2 text-[11px] sm:text-xs text-gray-500 leading-relaxed">
-                    Aminah sends POST requests to any webhook URL (n8n, Make, Zapier, or custom). From there, you can route bug reports to Jira, Linear, GitHub, Slack, email, or any other tool.
+                    Aminah sends POST requests to any webhook URL (n8n, Make, Zapier, or custom). From there, you can
+                    route bug reports to Jira, Linear, GitHub, Slack, email, or any other tool.
                   </p>
                   <p className="mt-2 text-[11px] sm:text-xs text-gray-500">
                     Don't have a workflow yet?{" "}

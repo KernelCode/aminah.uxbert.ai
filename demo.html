@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aminah - Live Demo | Bug Reporting in Action</title>
-    <meta name="description" content="Try Aminah's bug reporting tool in action. Click the floating widget to capture, annotate, and submit bug reports." />
+    <meta
+      name="description"
+      content="Try Aminah's bug reporting tool in action. Click the floating widget to capture, annotate, and submit bug reports."
+    />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://aminah.ai/demo" />
@@ -20,7 +23,8 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+          "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -321,7 +325,8 @@
       }
 
       @keyframes bounce {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0);
         }
         50% {
@@ -343,12 +348,10 @@
     <div class="container">
       <!-- Hero Section -->
       <div class="hero">
-        <div class="badge">
-          ✨ Live Interactive Demo
-        </div>
+        <div class="badge">✨ Live Interactive Demo</div>
         <h1>Try Aminah in Action</h1>
         <p>
-          This is a live demo page where you can test Aminah's bug reporting capabilities.<br>
+          This is a live demo page where you can test Aminah's bug reporting capabilities.<br />
           Click the floating widget (bottom-right) to capture screenshots, draw annotations, and submit bug reports!
         </p>
         <a href="/" class="btn">← Back to Homepage</a>
@@ -381,7 +384,10 @@
           <div class="step">
             <div class="step-number">4</div>
             <h3>Submit Report</h3>
-            <p>Add a description and submit. Aminah sends a POST request to your webhook, which can route the report anywhere—Jira, Slack, email, or any tool you use!</p>
+            <p>
+              Add a description and submit. Aminah sends a POST request to your webhook, which can route the report
+              anywhere—Jira, Slack, email, or any tool you use!
+            </p>
           </div>
         </div>
       </div>
@@ -424,14 +430,12 @@
               Click Me
             </button>
 
-            <button class="demo-button" onclick="alert('Another action triggered!')">
-              Test Action
-            </button>
+            <button class="demo-button" onclick="alert('Another action triggered!')">Test Action</button>
 
             <input type="text" class="demo-input" placeholder="Type something here..." />
           </div>
 
-          <div style="margin-top: 1rem;">
+          <div style="margin-top: 1rem">
             <label class="demo-checkbox">
               <input type="checkbox" />
               <span>Enable dark mode</span>
@@ -491,15 +495,16 @@
       <!-- CTA Section -->
       <div class="cta-box">
         <h3>Ready to Add Aminah to Your Site?</h3>
-        <p>It takes just 2 minutes to integrate. One line of code, unlimited bug reports. Aminah sends POST requests to any webhook (n8n, Make, Zapier, or custom) so you can route reports anywhere.</p>
+        <p>
+          It takes just 2 minutes to integrate. One line of code, unlimited bug reports. Aminah sends POST requests to
+          any webhook (n8n, Make, Zapier, or custom) so you can route reports anywhere.
+        </p>
         <a href="/#documentation" class="btn">Get Started →</a>
       </div>
     </div>
 
     <!-- Floating Widget Indicator -->
-    <div class="widget-indicator">
-      Click the widget
-    </div>
+    <div class="widget-indicator">Click the widget</div>
 
     <footer>
       <p>
@@ -523,7 +528,7 @@
         },
         integrations: {
           n8n: {
-            webhookUrl: "https://uxbertlabs.app.n8n.cloud/webhook-test/create-ticket",
+            webhookUrl: "https://uxbertlabs.app.n8n.cloud/webhook/create-ticket",
             enabled: true,
           },
         },
@@ -553,32 +558,32 @@
 
       // Hide the indicator after a few seconds
       setTimeout(() => {
-        const indicator = document.querySelector('.widget-indicator');
+        const indicator = document.querySelector(".widget-indicator");
         if (indicator) {
-          indicator.style.transition = 'opacity 0.5s ease';
-          indicator.style.opacity = '0';
+          indicator.style.transition = "opacity 0.5s ease";
+          indicator.style.opacity = "0";
           setTimeout(() => {
-            indicator.style.display = 'none';
+            indicator.style.display = "none";
           }, 500);
         }
       }, 10000);
 
       // Demo interactions logging
-      document.querySelectorAll('.demo-button').forEach(button => {
-        button.addEventListener('click', () => {
-          console.log('[Demo] Button clicked:', button.textContent);
+      document.querySelectorAll(".demo-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          console.log("[Demo] Button clicked:", button.textContent);
         });
       });
 
-      document.querySelectorAll('.demo-input').forEach(input => {
-        input.addEventListener('input', (e) => {
-          console.log('[Demo] Input changed:', e.target.value);
+      document.querySelectorAll(".demo-input").forEach((input) => {
+        input.addEventListener("input", (e) => {
+          console.log("[Demo] Input changed:", e.target.value);
         });
       });
 
-      document.querySelectorAll('.demo-checkbox input').forEach(checkbox => {
-        checkbox.addEventListener('change', (e) => {
-          console.log('[Demo] Checkbox toggled:', e.target.checked);
+      document.querySelectorAll(".demo-checkbox input").forEach((checkbox) => {
+        checkbox.addEventListener("change", (e) => {
+          console.log("[Demo] Checkbox toggled:", e.target.checked);
         });
       });
     </script>
