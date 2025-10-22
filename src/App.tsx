@@ -498,7 +498,7 @@ function App() {
                 </p>
                 <div className="mt-3 inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
                   <Code2 className="h-4 w-4 mr-1" />
-                  ~3KB gzipped
+                  2-minute setup • Zero dependencies
                 </div>
               </div>
             </div>
