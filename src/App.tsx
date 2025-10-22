@@ -33,6 +33,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [integrationType, setIntegrationType] = useState<"html" | "react">("html");
 
   // Configuration options
   const [config, setConfig] = useState({
@@ -103,9 +104,64 @@ function App() {
 </script>`;
   };
 
+  const generateReactCode = () => {
+    return `import { Aminah } from '@uxbertlabs/aminah';
+import "@uxbertlabs/aminah/dist/aminah.css";
+
+function App() {
+  return (
+    <>
+      {/* Your app content */}
+
+      <Aminah
+        config={{
+          ui: {
+            position: "${config.position}",
+            theme: "${config.theme}",
+          },
+          features: {
+            annotation: ${config.annotation},
+            deviceInfo: ${config.deviceInfo},
+          },
+          integrations: {
+            n8n: {
+              webhookUrl: "${config.webhookUrl}",
+              enabled: true,
+            },
+          },
+          screenshot: {
+            captureDelay: ${config.captureDelay},
+            quality: ${config.quality},
+            format: "${config.format}",
+            hooks: {
+              beforeCapture: async (context) => {
+                console.log("[Hook] Before capture:", context.mode);
+              },
+              afterCapture: async (context) => {
+                console.log("[Hook] After capture, screenshot size:", context.screenshot?.length);
+              },
+              onCaptureStart: async (context) => {
+                console.log("[Hook] Capture started at:", new Date(context.timestamp));
+              },
+              onCaptureComplete: async (context) => {
+                console.log("[Hook] Capture completed successfully");
+              },
+              onCaptureError: async (error, context) => {
+                console.error("[Hook] Capture failed:", error.message);
+              },
+            },
+          },
+        }}
+      />
+    </>
+  );
+}`;
+  };
+
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(generateConfigCode());
+      const code = integrationType === "html" ? generateConfigCode() : generateReactCode();
+      await navigator.clipboard.writeText(code);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -401,8 +457,41 @@ function App() {
       </section> */}
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 px-4 sm:px-6">
+      <section ref={featuresRef} className=" px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
+          {/* Frameworks Marquee */}
+          <div className="mb-12 overflow-hidden text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-6">
+              <Sparkles className="h-4 w-4 text-purple-600" />
+              <span className="text-sm font-medium text-purple-600">Works with all frameworks</span>
+            </div>
+            <div className="relative overflow-hidden bg-white/50 backdrop-blur-sm border-y border-gray-200 py-6">
+              <div className="flex animate-marquee whitespace-nowrap">
+                {["React", "Next.js", "Vue", "Nuxt", "Angular", "Svelte", "Vanilla JS", "Remix", "Astro", "Solid"]
+                  .concat([
+                    "React",
+                    "Next.js",
+                    "Vue",
+                    "Nuxt",
+                    "Angular",
+                    "Svelte",
+                    "Vanilla JS",
+                    "Remix",
+                    "Astro",
+                    "Solid",
+                  ])
+                  .map((framework, index) => (
+                    <span
+                      key={index}
+                      className="mx-8 text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                    >
+                      {framework}
+                    </span>
+                  ))}
+              </div>
+            </div>
+          </div>
+
           <div className="text-center mb-16 px-4">
             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Built for modern teams who value efficiency and clarity in their bug tracking workflow
@@ -775,12 +864,36 @@ function App() {
                 </Button>
               </div>
 
+              {/* Integration Type Tabs */}
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={() => setIntegrationType("html")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                    integrationType === "html"
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg border-transparent"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
+                  }`}
+                >
+                  HTML / Vanilla JS
+                </button>
+                <button
+                  onClick={() => setIntegrationType("react")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                    integrationType === "react"
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg border-transparent"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
+                  }`}
+                >
+                  React / Next.js
+                </button>
+              </div>
+
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
                 <div className="relative bg-gray-900 text-gray-100 p-3 sm:p-4 md:p-6 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
                   <pre className="whitespace-pre-wrap break-all sm:break-words min-w-0 leading-relaxed">
                     <code>
-                      <CodeHighlighter code={generateConfigCode()} />
+                      <CodeHighlighter code={integrationType === "html" ? generateConfigCode() : generateReactCode()} />
                     </code>
                   </pre>
                 </div>
