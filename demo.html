@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aminah - Live Demo | Bug Reporting in Action</title>
+    <title>Aminah - Live Demo</title>
     <meta
       name="description"
       content="Try Aminah's bug reporting tool in action. Click the floating widget to capture, annotate, and submit bug reports."
@@ -27,487 +27,85 @@
           "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #333;
+        background: #000;
+        color: #fff;
         line-height: 1.6;
         min-height: 100vh;
-        overflow-x: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
       }
 
       .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-      }
-
-      .hero {
+        max-width: 900px;
+        width: 100%;
         text-align: center;
-        padding: 3rem 1rem;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        margin-bottom: 2rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       }
 
-      .hero h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
+      h1 {
+        font-size: 3rem;
+        font-weight: 700;
         margin-bottom: 1rem;
+        color: #fff;
       }
 
-      .hero p {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 2rem;
+      p {
+        font-size: 1.25rem;
+        color: #999;
+        margin-bottom: 3rem;
         line-height: 1.8;
       }
 
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #667eea;
-        margin-bottom: 1.5rem;
-      }
-
-      .demo-section {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
+      .demo-content {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 3rem;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      }
-
-      .demo-section h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: #333;
-      }
-
-      .demo-section p {
-        color: #666;
-        margin-bottom: 1rem;
-      }
-
-      .steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-
-      .step {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-        transition: transform 0.3s ease;
-      }
-
-      .step:hover {
-        transform: translateY(-5px);
-      }
-
-      .step-number {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        font-size: 1.2rem;
-      }
-
-      .step h3 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .step p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 0.95rem;
-      }
-
-      .sample-content {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-radius: 15px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      .sample-content h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: #333;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-top: 1.5rem;
-      }
-
-      .feature-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      .feature-card h4 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        color: #667eea;
-      }
-
-      .feature-card p {
-        font-size: 0.9rem;
-        color: #666;
-      }
-
-      .cta-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: center;
-        margin-top: 2rem;
-      }
-
-      .cta-box h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .cta-box p {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 1.5rem;
       }
 
       .btn {
         display: inline-block;
-        padding: 0.8rem 2rem;
-        background: white;
-        color: #667eea;
+        padding: 0.875rem 2rem;
+        background: #fff;
+        color: #000;
         text-decoration: none;
-        border-radius: 50px;
+        border-radius: 6px;
         font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        font-size: 1rem;
+        transition: all 0.2s ease;
       }
 
       .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-      }
-
-      .interactive-elements {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin-top: 1.5rem;
-      }
-
-      .demo-button {
-        padding: 1rem;
-        background: #667eea;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .demo-button:hover {
-        background: #764ba2;
-        transform: scale(1.05);
-      }
-
-      .demo-input {
-        padding: 1rem;
-        border: 2px solid #667eea;
-        border-radius: 10px;
-        font-size: 1rem;
-        width: 100%;
-      }
-
-      .demo-checkbox {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem;
-        background: white;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-
-      .demo-checkbox input {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-      }
-
-      footer {
-        text-align: center;
-        padding: 2rem 1rem;
-        color: white;
-        font-size: 0.9rem;
-      }
-
-      footer a {
-        color: white;
-        text-decoration: underline;
-        font-weight: 600;
+        background: #e5e5e5;
       }
 
       @media (max-width: 768px) {
-        .hero h1 {
+        h1 {
           font-size: 2rem;
         }
 
-        .hero p {
+        p {
           font-size: 1rem;
         }
 
-        .demo-section {
-          padding: 1.5rem;
-        }
-
-        .steps {
-          grid-template-columns: 1fr;
-        }
-
-        .feature-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Floating indicator */
-      .widget-indicator {
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        background: white;
-        color: #667eea;
-        padding: 1rem 1.5rem;
-        border-radius: 50px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        font-weight: 600;
-        animation: bounce 2s infinite;
-        z-index: 999;
-      }
-
-      .widget-indicator::before {
-        content: "👇";
-        margin-right: 0.5rem;
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      @media (max-width: 768px) {
-        .widget-indicator {
-          bottom: 80px;
-          right: 10px;
-          padding: 0.8rem 1.2rem;
-          font-size: 0.9rem;
+        .demo-content {
+          padding: 2rem 1.5rem;
         }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- Hero Section -->
-      <div class="hero">
-        <div class="badge">✨ Live Interactive Demo</div>
-        <h1>Try Aminah in Action</h1>
+      <div class="demo-content">
+        <h1>Try Aminah</h1>
         <p>
-          This is a live demo page where you can test Aminah's bug reporting capabilities.<br />
-          Click the floating widget (bottom-right) to capture screenshots, draw annotations, and submit bug reports!
+          Click the widget in the bottom-right to capture a screenshot, annotate it, and submit a bug report.
         </p>
-        <a href="/" class="btn">← Back to Homepage</a>
-      </div>
-
-      <!-- How to Use Section -->
-      <div class="demo-section">
-        <h2>🎯 How to Use This Demo</h2>
-        <p>Follow these simple steps to experience Aminah's bug reporting flow:</p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Click the Widget</h3>
-            <p>Look for the floating Aminah widget in the bottom-right corner of your screen.</p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Capture Screen</h3>
-            <p>The tool will automatically capture your screen as a screenshot.</p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Annotate & Draw</h3>
-            <p>Use the annotation tools to highlight issues, draw arrows, or add text.</p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">4</div>
-            <h3>Submit Report</h3>
-            <p>
-              Add a description and submit. Aminah sends a POST request to your webhook, which can route the report
-              anywhere—Jira, Slack, email, or any tool you use!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Interactive Sample Content -->
-      <div class="demo-section">
-        <h2>🎨 Interactive Elements to Test</h2>
-        <p>Try reporting bugs on these interactive elements. Click the widget and annotate any of these items:</p>
-
-        <div class="sample-content">
-          <h3>Sample Dashboard</h3>
-          <div class="feature-grid">
-            <div class="feature-card">
-              <h4>📊 Analytics</h4>
-              <p>Total Users: 12,456</p>
-              <p>Active: 8,932</p>
-            </div>
-
-            <div class="feature-card">
-              <h4>💰 Revenue</h4>
-              <p>Monthly: $45,230</p>
-              <p>Growth: +23%</p>
-            </div>
-
-            <div class="feature-card">
-              <h4>🐛 Bug Reports</h4>
-              <p>Open: 23</p>
-              <p>Resolved: 156</p>
-            </div>
-
-            <div class="feature-card">
-              <h4>⚡ Performance</h4>
-              <p>Load Time: 1.2s</p>
-              <p>Uptime: 99.9%</p>
-            </div>
-          </div>
-
-          <div class="interactive-elements">
-            <button class="demo-button" onclick="alert('Button clicked! Try reporting this with Aminah.')">
-              Click Me
-            </button>
-
-            <button class="demo-button" onclick="alert('Another action triggered!')">Test Action</button>
-
-            <input type="text" class="demo-input" placeholder="Type something here..." />
-          </div>
-
-          <div style="margin-top: 1rem">
-            <label class="demo-checkbox">
-              <input type="checkbox" />
-              <span>Enable dark mode</span>
-            </label>
-
-            <label class="demo-checkbox">
-              <input type="checkbox" />
-              <span>Send notifications</span>
-            </label>
-
-            <label class="demo-checkbox">
-              <input type="checkbox" checked />
-              <span>Auto-save changes</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- What Gets Captured -->
-      <div class="demo-section">
-        <h2>📦 What Gets Captured</h2>
-        <p>When you submit a bug report through Aminah, we automatically collect:</p>
-
-        <div class="feature-grid">
-          <div class="feature-card">
-            <h4>📸 Screenshot</h4>
-            <p>Full page capture with your annotations</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>💻 Browser Info</h4>
-            <p>Browser type, version, and OS details</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>📱 Device Data</h4>
-            <p>Screen resolution and viewport size</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>🌐 Page Context</h4>
-            <p>Current URL, page title, and timestamp</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>📝 Console Logs</h4>
-            <p>Recent JavaScript console messages</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>🎯 User Actions</h4>
-            <p>Click paths and user interactions</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- CTA Section -->
-      <div class="cta-box">
-        <h3>Ready to Add Aminah to Your Site?</h3>
-        <p>
-          It takes just 2 minutes to integrate. One line of code, unlimited bug reports. Aminah sends POST requests to
-          any webhook (n8n, Make, Zapier, or custom) so you can route reports anywhere.
-        </p>
-        <a href="/#documentation" class="btn">Get Started →</a>
+        <a href="/" class="btn">Back to Homepage</a>
       </div>
     </div>
-
-    <!-- Floating Widget Indicator -->
-    <div class="widget-indicator">Click the widget</div>
-
-    <footer>
-      <p>
-        Powered by <a href="https://uxbert.com" target="_blank">Uxbert Labs</a> |
-        <a href="/">Back to Homepage</a>
-      </p>
-    </footer>
 
     <!-- Aminah Bug Reporter Integration -->
     <script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah/dist/aminah.standalone.min.js"></script>
