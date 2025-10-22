@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
+import { CodeHighlighter } from "@/components/CodeHighlighter";
 import {
   Drone,
   Image,
@@ -238,8 +239,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50/50 to-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
@@ -776,8 +777,12 @@ function App() {
 
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-                <div className="relative bg-gray-900 text-gray-100 p-3 sm:p-4 md:p-6 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-y-auto">
-                  <pre className="whitespace-pre-wrap break-all sm:break-words min-w-0">{generateConfigCode()}</pre>
+                <div className="relative bg-gray-900 text-gray-100 p-3 sm:p-4 md:p-6 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
+                  <pre className="whitespace-pre-wrap break-all sm:break-words min-w-0 leading-relaxed">
+                    <code>
+                      <CodeHighlighter code={generateConfigCode()} />
+                    </code>
+                  </pre>
                 </div>
               </div>
 
@@ -812,7 +817,10 @@ function App() {
                   Copy
                 </Button>
               </div>
-              <pre className="whitespace-pre-wrap break-words min-w-0">{`<!-- Aminah Bug Reporter -->
+              <pre className="whitespace-pre-wrap break-words min-w-0 leading-relaxed">
+                <code>
+                  <CodeHighlighter
+                    code={`<!-- Aminah Bug Reporter -->
 <script src="https://cdn.aminah.ai/v2/aminah.min.js"></script>
 <script>
   Aminah.init({
@@ -826,7 +834,10 @@ function App() {
       metadata: true
     }
   });
-</script>`}</pre>
+</script>`}
+                  />
+                </code>
+              </pre>
             </div>
           </div>
         </div>
