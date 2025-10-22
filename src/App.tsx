@@ -6,7 +6,6 @@ import {
   Bug,
   Image,
   Zap,
-  ArrowRight,
   Code2,
   CheckCircle2,
   Users,
@@ -564,7 +563,10 @@ function App() {
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        {pos.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+                        {pos
+                          .split("-")
+                          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                          .join(" ")}
                       </button>
                     ))}
                   </div>
