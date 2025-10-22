@@ -1,0 +1,18 @@
+# robots.txt for https://aminah.io
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private pages if any
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://aminah.io/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 10
+
+# Block specific bots if needed (example)
+# User-agent: BadBot
+# Disallow: /

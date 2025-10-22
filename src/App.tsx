@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import {
-  Bug,
+  Drone,
   Image,
   Zap,
   Code2,
@@ -240,7 +240,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-                <Bug className="h-4 w-4 text-white" />
+                <Drone className="h-4 w-4 text-white" />
               </div>
               <div className="text-xl sm:text-2xl font-bold">Aminah</div>
             </div>
@@ -403,7 +403,7 @@ function App() {
 
             <div className="feature-card group bg-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Bug className="h-6 w-6 text-white" />
+                <Drone className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Smart Integration</h3>
               <p className="text-gray-600 mb-4">
@@ -830,7 +830,7 @@ function App() {
             <div className="col-span-2 sm:col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-                  <Bug className="h-4 w-4 text-white" />
+                  <Drone className="h-4 w-4 text-white" />
                 </div>
                 <div className="text-lg sm:text-xl font-bold">Aminah</div>
               </div>
