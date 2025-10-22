@@ -17,6 +17,10 @@ import {
   Clock,
   Menu,
   X,
+  Copy,
+  Check,
+  Download,
+  Settings,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,6 +32,19 @@ function App() {
   const slidingTextRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Configuration options
+  const [config, setConfig] = useState({
+    webhookUrl: "https://uxbertlabs.app.n8n.cloud/webhook-test/create-ticket",
+    position: "bottom-right" as "bottom-right" | "bottom-left" | "top-right" | "top-left",
+    theme: "light" as "light" | "dark",
+    annotation: true,
+    deviceInfo: true,
+    captureDelay: 500,
+    quality: 0.95,
+    format: "png" as "png" | "jpeg",
+  });
 
   const userTypes = [
     { text: "QA Teams", color: "from-blue-600 to-cyan-600" },
@@ -37,6 +54,70 @@ function App() {
     { text: "Support Teams", color: "from-indigo-600 to-purple-600" },
     { text: "Beta Testers", color: "from-pink-600 to-rose-600" },
   ];
+
+  const generateConfigCode = () => {
+    return `<!-- UxReporter Integration -->
+<script src="https://cdn.uxreporter.io/v2/uxreporter.min.js"></script>
+<script>
+  UxReporter.init({
+    ui: {
+      position: "${config.position}",
+      theme: "${config.theme}",
+    },
+    features: {
+      annotation: ${config.annotation},
+      deviceInfo: ${config.deviceInfo},
+    },
+    integrations: {
+      n8n: {
+        webhookUrl: "${config.webhookUrl}",
+        enabled: true,
+      },
+    },
+    screenshot: {
+      captureDelay: ${config.captureDelay},
+      quality: ${config.quality},
+      format: "${config.format}",
+      hooks: {
+        beforeCapture: async (context) => {
+          console.log("[Hook] Before capture:", context.mode);
+        },
+        afterCapture: async (context) => {
+          console.log("[Hook] After capture, screenshot size:", context.screenshot?.length);
+        },
+        onCaptureStart: async (context) => {
+          console.log("[Hook] Capture started at:", new Date(context.timestamp));
+        },
+        onCaptureComplete: async (context) => {
+          console.log("[Hook] Capture completed successfully");
+        },
+        onCaptureError: async (error, context) => {
+          console.error("[Hook] Capture failed:", error.message);
+        },
+      },
+    },
+  });
+</script>`;
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(generateConfigCode());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const downloadN8nWorkflow = () => {
+    const link = document.createElement("a");
+    link.href = "/n8n.workflow.json";
+    link.download = "uxreporter-n8n-workflow.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   useEffect(() => {
     // Sliding text animation
@@ -166,11 +247,11 @@ function App() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-4">
-              <Button variant="ghost">Documentation</Button>
-              <Button variant="ghost">Pricing</Button>
-              <Button>Start Free Trial</Button>
-            </div>
+            <a href="#documentation">
+              <div className="hidden md:flex gap-4">
+                <Button variant="ghost">Documentation</Button>
+              </div>
+            </a>
 
             {/* Mobile Menu Button */}
             <button
@@ -185,13 +266,11 @@ function App() {
           {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-gray-200 pt-4">
-              <Button variant="ghost" className="w-full justify-start">
-                Documentation
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                Pricing
-              </Button>
-              <Button className="w-full">Start Free Trial</Button>
+              <a href="#documentation">
+                <Button variant="ghost" className="w-full justify-start">
+                  Documentation
+                </Button>
+              </a>
             </div>
           )}
         </div>
@@ -237,15 +316,6 @@ function App() {
             submit issues in seconds while you focus on fixing them.
           </p>
 
-          <div className="hero-cta flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 px-4">
-            <Button size="lg" className="text-sm sm:text-base bg-black hover:bg-gray-800 w-full sm:w-auto">
-              Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="lg" className="text-sm sm:text-base w-full sm:w-auto">
-              Watch 2-min Demo
-            </Button>
-          </div>
-
           {/* Trust indicators */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-500 px-4">
             <div className="flex items-center gap-2">
@@ -264,7 +334,7 @@ function App() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section 
       <section className="stats-section py-16 px-4 sm:px-6 bg-gradient-to-r from-gray-900 to-black text-white">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
           <div>
@@ -298,19 +368,12 @@ function App() {
             <div className="text-xs sm:text-sm text-gray-400">User Rating</div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Features Section */}
       <section ref={featuresRef} className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 px-4">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Everything you need,
-              <br />
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                nothing you don't
-              </span>
-            </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Built for modern teams who value efficiency and clarity in their bug tracking workflow
             </p>
@@ -464,6 +527,235 @@ function App() {
         </div>
       </section>
 
+      {/* Configuration Generator */}
+      <section className="py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50" id="documentation">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-4">
+              <Settings className="h-4 w-4 text-purple-600" />
+              <span className="text-sm font-medium text-purple-600">Configuration Generator</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Customize Your Integration</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Configure UxReporter to match your needs. Adjust settings below and generate your custom integration code.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Configuration Options */}
+            <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-purple-600" />
+                  UI Settings
+                </h3>
+
+                {/* Position */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Widget Position</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(["bottom-right", "bottom-left", "top-right", "top-left"] as const).map((pos) => (
+                      <button
+                        key={pos}
+                        onClick={() => setConfig({ ...config, position: pos })}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          config.position === pos
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {pos.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Theme */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(["light", "dark"] as const).map((theme) => (
+                      <button
+                        key={theme}
+                        onClick={() => setConfig({ ...config, theme })}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          config.theme === theme
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {theme.charAt(0).toUpperCase() + theme.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-purple-600" />
+                  Features
+                </h3>
+
+                {/* Feature Toggles */}
+                <div className="space-y-3">
+                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
+                    <span className="text-sm font-medium text-gray-700">Enable Annotations</span>
+                    <input
+                      type="checkbox"
+                      checked={config.annotation}
+                      onChange={(e) => setConfig({ ...config, annotation: e.target.checked })}
+                      className="w-5 h-5 text-purple-600 rounded focus:ring-purple-500"
+                    />
+                  </label>
+                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
+                    <span className="text-sm font-medium text-gray-700">Collect Device Info</span>
+                    <input
+                      type="checkbox"
+                      checked={config.deviceInfo}
+                      onChange={(e) => setConfig({ ...config, deviceInfo: e.target.checked })}
+                      className="w-5 h-5 text-purple-600 rounded focus:ring-purple-500"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Image className="h-5 w-5 text-purple-600" />
+                  Screenshot Settings
+                </h3>
+
+                {/* Screenshot Format */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Format</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(["png", "jpeg"] as const).map((format) => (
+                      <button
+                        key={format}
+                        onClick={() => setConfig({ ...config, format })}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          config.format === format
+                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {format.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quality Slider */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Quality: {(config.quality * 100).toFixed(0)}%
+                  </label>
+                  <input
+                    type="range"
+                    min="0.5"
+                    max="1"
+                    step="0.05"
+                    value={config.quality}
+                    onChange={(e) => setConfig({ ...config, quality: parseFloat(e.target.value) })}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                  />
+                </div>
+
+                {/* Capture Delay */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Capture Delay: {config.captureDelay}ms
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="2000"
+                    step="100"
+                    value={config.captureDelay}
+                    onChange={(e) => setConfig({ ...config, captureDelay: parseInt(e.target.value) })}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-purple-600" />
+                  Integration
+                </h3>
+
+                {/* Webhook URL */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">n8n Webhook URL</label>
+                  <input
+                    type="text"
+                    value={config.webhookUrl}
+                    onChange={(e) => setConfig({ ...config, webhookUrl: e.target.value })}
+                    placeholder="https://your-n8n-instance.com/webhook/..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                  />
+                  <p className="mt-2 text-xs text-gray-500">
+                    Don't have a workflow yet?{" "}
+                    <button
+                      onClick={downloadN8nWorkflow}
+                      className="text-purple-600 hover:text-purple-700 font-medium inline-flex items-center gap-1"
+                    >
+                      <Download className="h-3 w-3" />
+                      Download n8n workflow template
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Generated Code */}
+            <div className="bg-white p-6 rounded-2xl border border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Code2 className="h-5 w-5 text-purple-600" />
+                  Your Custom Code
+                </h3>
+                <Button
+                  onClick={copyToClipboard}
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  size="sm"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 mr-2" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy Code
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                <div className="relative bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-xs overflow-x-auto max-h-[600px] overflow-y-auto">
+                  <pre className="whitespace-pre-wrap break-words">{generateConfigCode()}</pre>
+                </div>
+              </div>
+
+              <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800 font-medium mb-1">Installation Instructions</p>
+                <ol className="text-xs text-blue-700 space-y-1 list-decimal list-inside">
+                  <li>Copy the code above</li>
+                  <li>Paste it before your closing &lt;/body&gt; tag</li>
+                  <li>Replace the webhook URL with your own n8n endpoint</li>
+                  <li>Save and deploy your changes</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Code Example */}
       <section className="py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
@@ -484,8 +776,8 @@ function App() {
 <script src="https://cdn.aminah.io/v2/aminah.min.js"></script>
 <script>
   Aminah.init({
-    apiKey: 'YOUR_API_KEY',
-    webhook: 'https://your-webhook-url.com',
+ 
+    webhook: 'https://your-webhook-url.com', // n8n, Zapier, or custom endpoint
     position: 'bottom-right',
     features: {
       screenshots: true,
@@ -501,6 +793,7 @@ function App() {
       </section>
 
       {/* CTA Section */}
+      {/*
       <section className="py-20 px-4 sm:px-6 bg-gradient-to-br from-purple-600 to-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 px-4">Stop losing bugs in emails and chat</h2>
@@ -526,7 +819,7 @@ function App() {
             No credit card required • Setup in 2 minutes • Cancel anytime
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="border-t border-gray-200 py-12 px-4 sm:px-6">
@@ -556,11 +849,6 @@ function App() {
                 </li>
                 <li>
                   <a href="#" className="hover:text-gray-900">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-900">
                     Changelog
                   </a>
                 </li>
@@ -570,7 +858,7 @@ function App() {
               <h4 className="font-semibold mb-3 text-sm sm:text-base">Resources</h4>
               <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
                 <li>
-                  <a href="#" className="hover:text-gray-900">
+                  <a href="#documentation" className="hover:text-gray-900">
                     Documentation
                   </a>
                 </li>
@@ -599,16 +887,7 @@ function App() {
                     About
                   </a>
                 </li>
-                <li>
-                  <a href="#" className="hover:text-gray-900">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-900">
-                    Privacy
-                  </a>
-                </li>
+
                 <li>
                   <a href="#" className="hover:text-gray-900">
                     Terms
