@@ -467,19 +467,8 @@ function App() {
             </div>
             <div className="relative overflow-hidden bg-white/50 backdrop-blur-sm border-y border-gray-200 py-6">
               <div className="flex animate-marquee whitespace-nowrap">
-                {["React", "Next.js", "Vue", "Nuxt", "Angular", "Svelte", "Vanilla JS", "Remix", "Astro", "Solid"]
-                  .concat([
-                    "React",
-                    "Next.js",
-                    "Vue",
-                    "Nuxt",
-                    "Angular",
-                    "Svelte",
-                    "Vanilla JS",
-                    "Remix",
-                    "Astro",
-                    "Solid",
-                  ])
+                {["React", "Vue", "Nuxt", "Angular", "Svelte", "Vanilla JS", "Remix", "Astro", "Solid"]
+                  .concat(["React", "Vue", "Nuxt", "Angular", "Svelte", "Vanilla JS", "Remix", "Astro", "Solid"])
                   .map((framework, index) => (
                     <span
                       key={index}
@@ -884,7 +873,7 @@ function App() {
                       : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
                   }`}
                 >
-                  React / Next.js
+                  React
                 </button>
               </div>
 
