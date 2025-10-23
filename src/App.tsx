@@ -21,6 +21,10 @@ import {
   Check,
   Download,
   Settings,
+  Navigation,
+  MousePointer2,
+  ScrollText,
+  Timer,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -30,10 +34,12 @@ function App() {
   const featuresRef = useRef<HTMLDivElement>(null);
   const flowRef = useRef<HTMLDivElement>(null);
   const slidingTextRef = useRef<HTMLDivElement>(null);
+  const trackingRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [integrationType, setIntegrationType] = useState<"html" | "react">("html");
+  const [activeEventIndex, setActiveEventIndex] = useState(0);
 
   // Configuration options
   const [config, setConfig] = useState({
@@ -56,9 +62,88 @@ function App() {
     { text: "Beta Testers", color: "from-pink-600 to-rose-600" },
   ];
 
+  const trackingEvents = [
+    {
+      type: "Navigation",
+      icon: Navigation,
+      time: "11:40:12 AM",
+      title: "Uxbert Aminah - React Demo",
+      subtitle: "From: /",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      type: "Scroll",
+      icon: ScrollText,
+      time: "11:40:13 AM",
+      title: "Scrolled: 95%",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      type: "Click",
+      icon: MousePointer2,
+      time: "11:40:14 AM",
+      title: "Element: div",
+      subtitle: 'Text: "Draw, add arrows, rectangles, and text"',
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      type: "Scroll",
+      icon: ScrollText,
+      time: "11:40:14 AM",
+      title: "Scrolled: 45%",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      type: "Click",
+      icon: MousePointer2,
+      time: "11:40:15 AM",
+      title: "Element: div",
+      subtitle: 'Text: "Automatically captures viewport or full page"',
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      type: "Click",
+      icon: MousePointer2,
+      time: "11:40:15 AM",
+      title: "Element: div",
+      subtitle: 'Text: "Device Info"',
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      type: "Click",
+      icon: MousePointer2,
+      time: "11:40:15 AM",
+      title: "Element: div",
+      subtitle: 'Text: "n8n Integration"',
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      type: "Click",
+      icon: MousePointer2,
+      time: "11:40:16 AM",
+      title: "Element: div",
+      subtitle: 'Text: "JSON Export"',
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      type: "Scroll",
+      icon: ScrollText,
+      time: "11:40:16 AM",
+      title: "Scrolled: 44%",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      type: "Scroll",
+      icon: ScrollText,
+      time: "11:40:17 AM",
+      title: "Scrolled: 100%",
+      color: "from-purple-500 to-pink-500",
+    },
+  ];
+
   const generateConfigCode = () => {
     return `<!-- Aminah Bug Reporter -->
-<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.6/dist/aminah.standalone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.7/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
     ui: {
@@ -188,6 +273,15 @@ function App() {
   }, [userTypes.length]);
 
   useEffect(() => {
+    // Tracking events animation
+    const interval = setInterval(() => {
+      setActiveEventIndex((prev) => (prev + 1) % trackingEvents.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [trackingEvents.length]);
+
+  useEffect(() => {
     // Animate the sliding text when it changes
     if (slidingTextRef.current) {
       gsap.fromTo(
@@ -286,6 +380,19 @@ function App() {
             target.textContent = num.toLocaleString();
           });
         },
+      });
+
+      // Tracking section animation
+      gsap.from(".tracking-event-item", {
+        scrollTrigger: {
+          trigger: trackingRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power3.out",
       });
     }, heroRef);
 
@@ -420,7 +527,7 @@ function App() {
         </div>
       </section>
 
-      {/* Stats Section 
+      {/* Stats Section
       <section className="stats-section py-16 px-4 sm:px-6 bg-gradient-to-r from-gray-900 to-black text-white">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
           <div>
@@ -455,6 +562,152 @@ function App() {
           </div>
         </div>
       </section> */}
+
+      {/* User Tracking Visualization Section */}
+      <section ref={trackingRef} className="py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-6">
+              <Clock className="h-4 w-4 text-purple-600" />
+              <span className="text-sm font-medium text-purple-600">Real-Time User Tracking</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">Every Step Captured Automatically</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+              Aminah tracks user interactions in real-time. When a bug is reported, you get a complete timeline of
+              everything that led to the issue.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Live Tracking Visualization */}
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-700">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse delay-75"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse delay-150"></div>
+                </div>
+                <span className="text-xs sm:text-sm text-gray-400 font-mono">Live Tracking Active</span>
+              </div>
+
+              <div className="space-y-3 max-h-[500px] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
+                {trackingEvents.map((event, index) => (
+                  <div
+                    key={index}
+                    className={`tracking-event-item p-4 rounded-lg transition-all duration-500 ${
+                      index === activeEventIndex
+                        ? `bg-gradient-to-r ${event.color} shadow-lg scale-105`
+                        : index < activeEventIndex
+                        ? "bg-gray-800/50 opacity-70"
+                        : "bg-gray-800/30 opacity-40"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0">
+                        <event.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="flex-grow min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <span
+                            className={`text-xs sm:text-sm font-semibold ${
+                              index === activeEventIndex ? "text-white" : "text-gray-300"
+                            }`}
+                          >
+                            {index + 1}. {event.type}
+                          </span>
+                          <span
+                            className={`text-xs font-mono ${
+                              index === activeEventIndex ? "text-white/90" : "text-gray-400"
+                            }`}
+                          >
+                            {event.time}
+                          </span>
+                        </div>
+                        <div
+                          className={`text-xs sm:text-sm mb-1 ${
+                            index === activeEventIndex ? "text-white/90" : "text-gray-400"
+                          }`}
+                        >
+                          {event.title}
+                        </div>
+                        {event.subtitle && (
+                          <div
+                            className={`text-xs truncate ${
+                              index === activeEventIndex ? "text-white/80" : "text-gray-500"
+                            }`}
+                          >
+                            {event.subtitle}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Features List */}
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                    <Navigation className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Navigation Tracking</h3>
+                    <p className="text-gray-600 text-sm">
+                      Records every page visit and route change, so you know exactly where users were when the bug
+                      occurred.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <ScrollText className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Scroll Position</h3>
+                    <p className="text-gray-600 text-sm">
+                      Captures scroll depth and position to understand the user's viewport and what they could see.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                    <MousePointer2 className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Click Events</h3>
+                    <p className="text-gray-600 text-sm">
+                      Logs every click with element details, text content, and CSS selectors for precise debugging.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center">
+                    <Timer className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Precise Timestamps</h3>
+                    <p className="text-gray-600 text-sm">
+                      Every action is timestamped to the millisecond, making it easy to reproduce issues.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section ref={featuresRef} className=" px-4 sm:px-6">
@@ -923,7 +1176,7 @@ function App() {
                 <code>
                   <CodeHighlighter
                     code={`<!-- Aminah Bug Reporter -->
-<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.6/dist/aminah.standalone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.7/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
     webhook: 'https://your-webhook-url.com', // n8n, Zapier, or custom endpoint
