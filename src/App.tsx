@@ -143,7 +143,7 @@ function App() {
 
   const generateConfigCode = () => {
     return `<!-- Aminah Bug Reporter -->
-<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.7/dist/aminah.standalone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.9/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
     ui: {
@@ -1176,7 +1176,7 @@ function App() {
                 <code>
                   <CodeHighlighter
                     code={`<!-- Aminah Bug Reporter -->
-<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.7/dist/aminah.standalone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@uxbertlabs/aminah@1.0.9/dist/aminah.standalone.min.js"></script>
 <script>
   Aminah.init({
     webhook: 'https://your-webhook-url.com', // n8n, Zapier, or custom endpoint
